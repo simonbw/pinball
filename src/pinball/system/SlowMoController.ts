@@ -1,6 +1,7 @@
 import BaseEntity from "../../core/entity/BaseEntity";
 import Entity from "../../core/entity/Entity";
 import { setFocusAmount } from "../postprocessing";
+import { SoundInstance } from "../sound/SoundInstance";
 import { getBindings } from "../ui/KeyboardBindings";
 import LogicBoard from "./LogicBoard";
 
@@ -9,9 +10,8 @@ const RAMP_DOWN_SPEED = 0.01;
 const RAMP_UP_SPEED = 0.005;
 const COOLDOWN_POINT = 0.8;
 
-// const DRAIN_SPEED = 0.5;
-const DRAIN_SPEED = 0.005;
-const FILL_SPEED = 0.2;
+const DRAIN_SPEED = 0.5;
+const FILL_SPEED = 0.15;
 
 export interface SlowMoRemainingEvent {
   type: "slowMoRemaining";
@@ -76,12 +76,14 @@ export default class SlowMoController extends BaseEntity implements Entity {
         } else {
           this.remaining = 0;
           this.cooldown = true;
+          this.addChild(new SoundInstance("drain", { speed: 2, gain: 0.3 }));
         }
         game.slowMo = Math.max(game.slowMo - RAMP_DOWN_SPEED, SLOW_SPEED);
       } else {
         this.remaining = Math.min(this.remaining + FILL_SPEED * dt, 1.0);
         if (this.cooldown && this.remaining >= COOLDOWN_POINT) {
           this.cooldown = false;
+          this.addChild(new SoundInstance("upgrade", { speed: 2, gain: 0.3 }));
         }
         game.slowMo = Math.min(game.slowMo + RAMP_UP_SPEED, 1);
       }

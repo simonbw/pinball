@@ -1,11 +1,10 @@
 import BaseEntity from "../../core/entity/BaseEntity";
 import Entity from "../../core/entity/Entity";
-import { SoundName } from "../../core/resources/sounds";
 import { clamp } from "../../core/util/MathUtil";
+import { rNormal } from "../../core/util/Random";
 import { V } from "../../core/Vector";
 import { PositionalSound } from "../sound/PositionalSound";
 import Ball from "./Ball";
-import { rNormal } from "../../core/util/Random";
 import { getNameFromSoundInfo, SoundInfo } from "./BallCollisionInfo";
 
 const MAX_SPEED = 100.0;

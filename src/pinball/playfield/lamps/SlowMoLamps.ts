@@ -31,8 +31,9 @@ export default class SlowMoLamps extends BaseEntity implements Entity {
 
   setLampColors(cooldown: boolean) {
     const color = cooldown ? COLOR_COOL : COLOR_READY;
+    console.log("changing color", cooldown);
     for (const lamp of this.lamps) {
-      lamp.setColorGradual(color, 0.8);
+      lamp.setColorImmediate(color);
     }
   }
 

@@ -67,7 +67,7 @@ async function makeTable() {
 
 async function calculateFramerate(): Promise<number> {
   console.log("Calculating framerate...");
-  const testFrames = 100;
+  const testFrames = 120;
 
   const startTime = await waitForAnimationFrame();
   for (let i = 0; i < testFrames - 1; i++) {
@@ -75,7 +75,8 @@ async function calculateFramerate(): Promise<number> {
   }
   const endTime = await waitForAnimationFrame();
 
-  const framerate = Math.round((testFrames * 1000) / (endTime - startTime));
+  const rawFramerate = (testFrames * 1000) / (endTime - startTime);
+  const framerate = Math.round(rawFramerate / 6) * 6;
   console.log({ framerate });
   return framerate;
 }
