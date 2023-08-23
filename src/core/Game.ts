@@ -92,7 +92,7 @@ export default class Game {
 
   /** The intended time between renders in real-world seconds */
   get trueRenderTimestep(): number {
-    return (1 / this.framerate) * this.slowMo;
+    return 1 / this.framerate;
   }
 
   /** The intended time between ticks in game seconds */
@@ -247,6 +247,7 @@ export default class Game {
   private loop(time: number): void {
     window.requestAnimationFrame((t) => this.loop(t));
     this.framenumber += 1;
+    const timeSinceLastFrame = time - this.lastFrameTime;
     this.lastFrameTime = time;
 
     const dt = this.tickTimestep;

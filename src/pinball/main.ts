@@ -20,7 +20,6 @@ declare global {
 
 export async function main() {
   await new Promise((resolve) => window.addEventListener("load", resolve));
-
   const game = new Game({
     tickIterations: 22,
   });
@@ -33,7 +32,11 @@ export async function main() {
   game.start();
 
   const preloader = game.addEntity(new Preloader());
+
+  const frameratePromise = calculateFramerate();
+
   await preloader.waitTillLoaded();
+  game.framerate = await frameratePromise;
 
   initPostProcessing(game);
 
@@ -60,4 +63,23 @@ async function makeTable() {
     default:
       return new HockeyTable(await loadHockeyDoc());
   }
+}
+
+async function calculateFramerate(): Promise<number> {
+  console.log("Calculating framerate...");
+  const testFrames = 100;
+
+  const startTime = await waitForAnimationFrame();
+  for (let i = 0; i < testFrames - 1; i++) {
+    await waitForAnimationFrame();
+  }
+  const endTime = await waitForAnimationFrame();
+
+  const framerate = Math.round((testFrames * 1000) / (endTime - startTime));
+  console.log({ framerate });
+  return framerate;
+}
+
+async function waitForAnimationFrame(): Promise<number> {
+  return new Promise((resolve) => requestAnimationFrame(resolve));
 }

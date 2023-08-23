@@ -1,8 +1,7 @@
 import BaseEntity from "../../core/entity/BaseEntity";
 import Entity from "../../core/entity/Entity";
-import { getBindings } from "../ui/KeyboardBindings";
 import { setFocusAmount } from "../postprocessing";
-import gameOver from "../../../resources/audio/game-over.flac";
+import { getBindings } from "../ui/KeyboardBindings";
 import LogicBoard from "./LogicBoard";
 
 const SLOW_SPEED = 0.35;
