@@ -1,22 +1,21 @@
 import {
-  CylinderBufferGeometry,
+  CylinderGeometry,
   MeshStandardMaterial,
-  Object3D,
   SpotLight,
   Vector3,
 } from "three";
 import BaseEntity from "../../core/entity/BaseEntity";
 import Entity from "../../core/entity/Entity";
 import { degToRad } from "../../core/util/MathUtil";
+import { rBool, rUniform } from "../../core/util/Random";
 import { TEXTURES } from "../graphics/textures";
-import { isBall } from "./Ball";
 import Table from "../tables/Table";
-import { rUniform, rBool } from "../../core/util/Random";
+import { isBall } from "./Ball";
 
 const RADIUS = 1.0625; // Radius in half inches
 const HEIGHT = RADIUS / 1.5; // Ratio of hockey puck size
 
-const GEOMETRY = new CylinderBufferGeometry(RADIUS, RADIUS, HEIGHT, 32, 1);
+const GEOMETRY = new CylinderGeometry(RADIUS, RADIUS, HEIGHT, 32, 1);
 GEOMETRY.rotateX(Math.PI / 2);
 
 const roughnessMap = TEXTURES.PlasticScuffedRoughness.clone();

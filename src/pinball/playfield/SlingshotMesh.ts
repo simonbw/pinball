@@ -1,14 +1,13 @@
 import {
-  BoxBufferGeometry,
-  BufferGeometry,
+  BoxGeometry,
   ExtrudeGeometry,
   Mesh,
   MeshStandardMaterial,
 } from "three";
+import { V2d } from "../../core/Vector";
 import BaseEntity from "../../core/entity/BaseEntity";
 import Entity from "../../core/entity/Entity";
 import { clamp } from "../../core/util/MathUtil";
-import { V2d } from "../../core/Vector";
 import { makeOutlineShape } from "../graphics/OutlineShape";
 
 const EXPAND_AMOUNT = 1.2;
@@ -17,7 +16,7 @@ const DURATION = 0.08;
 const MATERIAL = new MeshStandardMaterial({
   color: 0xdd0000,
   roughness: 0.8,
-  morphTargets: true,
+  // morphTargets: true,
 });
 
 const KICKER_MATERIAL = new MeshStandardMaterial({
@@ -43,27 +42,31 @@ export default class SlingshotMesh extends BaseEntity implements Entity {
     const geometry = this.makeGeometry(0);
     const morphGeometry = this.makeGeometry(EXPAND_AMOUNT);
 
-    geometry.morphTargets.push({
-      name: "open",
-      vertices: morphGeometry.vertices,
-    });
+    // geometry.morphTargets.push({
+    //   name: "open",
+    //   vertices: morphGeometry.vertices,
+    // });
+
+    geometry.morphAttributes.position = [
+      morphGeometry.attributes.position.clone(),
+    ];
 
     const material = MATERIAL.clone();
     material.color.set(color);
-    const bufferGeometry = new BufferGeometry().fromGeometry(geometry);
-    this.mesh = new Mesh(bufferGeometry, material);
+    this.mesh = new Mesh(geometry, material);
+    this.mesh.updateMorphTargets();
 
     this.mesh.castShadow = true;
     this.mesh.receiveShadow = false;
 
-    const kickerGeometry = new BoxBufferGeometry(0.25, 0.6, 1.0);
+    const kickerGeometry = new BoxGeometry(0.25, 0.6, 1.0);
     kickerGeometry.translate(0, 0, -0.5);
     this.kickerMesh = new Mesh(kickerGeometry, KICKER_MATERIAL);
     const normal = end.sub(start).irotate90cw();
     this.kickerMesh.rotateZ(normal.angle);
     this.object3ds.push(this.kickerMesh);
 
-    this.disposeables.push(bufferGeometry, material);
+    this.disposeables.push(material);
     // Cuz we already don't need them
     geometry.dispose();
     morphGeometry.dispose();

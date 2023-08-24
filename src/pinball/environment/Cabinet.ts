@@ -42,12 +42,13 @@ export default class Cabinet extends BaseEntity implements Entity {
     });
     geometry.translate(0, 0, -depth);
 
-    for (const vertex of geometry.vertices) {
-      if (vertex.z < 0) {
-        const y = (vertex.y - top) / (bottom - top);
-        vertex.z = -lerp(depth + rise, depth, y);
-      }
-    }
+    // TODO: This is important
+    // for (const vertex of geometry.vertices) {
+    //   if (vertex.z < 0) {
+    //     const y = (vertex.y - top) / (bottom - top);
+    //     vertex.z = -lerp(depth + rise, depth, y);
+    //   }
+    // }
 
     this.mesh = new Mesh(geometry, MATERIAL);
 

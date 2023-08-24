@@ -33,10 +33,8 @@ export async function main() {
 
   const preloader = game.addEntity(new Preloader());
 
-  const frameratePromise = calculateFramerate();
-
   await preloader.waitTillLoaded();
-  game.framerate = await frameratePromise;
+  game.framerate = await calculateFramerate();
 
   initPostProcessing(game);
 
@@ -67,7 +65,7 @@ async function makeTable() {
 
 async function calculateFramerate(): Promise<number> {
   console.log("Calculating framerate...");
-  const testFrames = 120;
+  const testFrames = 30;
 
   const startTime = await waitForAnimationFrame();
   for (let i = 0; i < testFrames - 1; i++) {

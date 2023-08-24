@@ -20,7 +20,7 @@ export default class FastCubeCamera extends Object3D {
     PerspectiveCamera,
     PerspectiveCamera,
     PerspectiveCamera,
-    PerspectiveCamera
+    PerspectiveCamera,
   ];
   constructor(
     near: number,
@@ -98,19 +98,19 @@ export default class FastCubeCamera extends Object3D {
     renderer.xr.enabled = currentXrEnabled;
   }
 
-  clear(
-    renderer: WebGLRenderer,
-    color?: boolean,
-    depth?: boolean,
-    stencil?: boolean
-  ) {
-    const currentRenderTarget = renderer.getRenderTarget();
+  // clear(
+  //   renderer: WebGLRenderer,
+  //   color?: boolean,
+  //   depth?: boolean,
+  //   stencil?: boolean
+  // ) {
+  //   const currentRenderTarget = renderer.getRenderTarget();
 
-    for (const side of ALL_SIDES) {
-      renderer.setRenderTarget(this.renderTarget, side);
-      renderer.clear(color, depth, stencil);
-    }
+  //   for (const side of ALL_SIDES) {
+  //     renderer.setRenderTarget(this.renderTarget, side);
+  //     renderer.clear(color, depth, stencil);
+  //   }
 
-    renderer.setRenderTarget(currentRenderTarget);
-  }
+  //   renderer.setRenderTarget(currentRenderTarget);
+  // }
 }

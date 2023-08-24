@@ -50,6 +50,7 @@ export default class Preloader extends BaseEntity implements Entity {
 
     await Promise.all(
       fonts.map(async (font) => {
+        // @ts-ignore (dunno why it doesn't have add method)
         document.fonts.add(await font.load());
         loaded += 1;
         element.innerText = `${loaded} / ${total}`;

@@ -1,7 +1,7 @@
-import { Mesh, MeshPhongMaterial, TubeBufferGeometry } from "three";
+import { Mesh, MeshPhongMaterial, TubeGeometry } from "three";
+import { V2d } from "../../../core/Vector";
 import BaseEntity from "../../../core/entity/BaseEntity";
 import Entity from "../../../core/entity/Entity";
-import { V2d } from "../../../core/Vector";
 import Path3 from "../../graphics/Path3";
 
 const MATERIAL = new MeshPhongMaterial({
@@ -28,7 +28,7 @@ export default class GoalMesh extends BaseEntity implements Entity {
       .lineTo(-width / 2, depth / 2, -4)
       .lineTo(-width / 2, depth / 2, 0);
 
-    const geometry = new TubeBufferGeometry(path, 128, 0.5, 8);
+    const geometry = new TubeGeometry(path, 128, 0.5, 8);
     geometry.translate(0, 0, -0.24);
     this.mesh = new Mesh(geometry, MATERIAL);
     this.mesh.rotateZ(angle);

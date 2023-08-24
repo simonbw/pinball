@@ -3,7 +3,7 @@ import {
   LinearFilter,
   Mesh,
   MeshPhongMaterial,
-  PlaneBufferGeometry,
+  PlaneGeometry,
   RGBAFormat,
 } from "three";
 import BaseEntity from "../../core/entity/BaseEntity";
@@ -54,7 +54,7 @@ export default class TextOverlay extends BaseEntity implements Entity {
       map: this.texture,
     });
 
-    const geometry = new PlaneBufferGeometry(rect.width, rect.height);
+    const geometry = new PlaneGeometry(rect.width, rect.height);
     geometry.rotateX(Math.PI);
     this.mesh = new Mesh(geometry, material);
     this.mesh.position.set(rect.center.x, rect.center.y, z);

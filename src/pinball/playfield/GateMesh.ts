@@ -1,28 +1,32 @@
 import {
-  BoxBufferGeometry,
+  BoxGeometry,
   Mesh,
   MeshPhongMaterial,
   MixOperation,
   Vector3,
 } from "three";
+import { V2d } from "../../core/Vector";
 import BaseEntity from "../../core/entity/BaseEntity";
 import Entity from "../../core/entity/Entity";
 import { rInteger } from "../../core/util/Random";
-import { V2d } from "../../core/Vector";
 import Reflector from "../graphics/Reflector";
 import Gate from "./Gate";
 
 export default class GateMesh extends BaseEntity implements Entity {
   reflector: Reflector;
 
-  constructor(private gate: Gate, end: V2d, width: number = 0.25) {
+  constructor(
+    private gate: Gate,
+    end: V2d,
+    width: number = 0.25
+  ) {
     super();
 
     const pivot = gate.pivot;
     const delta = end.sub(pivot);
     const length = delta.magnitude;
 
-    const geometry = new BoxBufferGeometry(length, width, 1.5);
+    const geometry = new BoxGeometry(length, width, 1.5);
     geometry.translate(length / 2, 0, 0);
     geometry.rotateZ(delta.angle);
 

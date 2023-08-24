@@ -1,16 +1,15 @@
 import { Body, Circle } from "p2";
-import { CylinderBufferGeometry, Mesh, MeshStandardMaterial } from "three";
+import { V2d } from "../../core/Vector";
 import BaseEntity from "../../core/entity/BaseEntity";
 import Entity from "../../core/entity/Entity";
-import { clamp, degToRad } from "../../core/util/MathUtil";
-import { V2d } from "../../core/Vector";
-import Ball, { isBall } from "../ball/Ball";
-import { scoreEvent } from "../system/LogicBoard";
-import { PositionalSound } from "../sound/PositionalSound";
+import { degToRad } from "../../core/util/MathUtil";
+import { rNormal } from "../../core/util/Random";
 import { CollisionGroups } from "../Collision";
 import { P2Materials } from "../P2Materials";
+import Ball, { isBall } from "../ball/Ball";
+import { PositionalSound } from "../sound/PositionalSound";
+import { scoreEvent } from "../system/LogicBoard";
 import BumperMesh from "./BumperMesh";
-import { rNormal } from "../../core/util/Random";
 
 const STRENGTH = 250;
 

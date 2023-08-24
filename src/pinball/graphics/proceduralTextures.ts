@@ -2,12 +2,11 @@ import {
   ClampToEdgeWrapping,
   DataTexture,
   RepeatWrapping,
-  RGBFormat,
   RGBAFormat,
 } from "three";
+import { clamp } from "../../core/util/MathUtil";
 import { rInteger } from "../../core/util/Random";
 import { V } from "../../core/Vector";
-import { clamp } from "../../core/util/MathUtil";
 
 type PixelDataGenerator = (x: number, y: number, c: number) => number;
 
@@ -32,10 +31,19 @@ export function generateTextureData(
 }
 
 export function createNoiseNormalMap(size: number) {
-  const data = generateTextureData(size, size, 3, (x, y, c) =>
-    c === 2 ? 255 : rInteger(0, 256)
-  );
-  const texture = new DataTexture(data, size, size, RGBFormat);
+  const data = generateTextureData(size, size, 4, (x, y, channel) => {
+    switch (channel) {
+      case 0:
+      case 1:
+        return rInteger(0, 256);
+      case 2:
+      case 3:
+        return 255;
+      default:
+        throw new Error("Invalid channel: " + channel);
+    }
+  });
+  const texture = new DataTexture(data, size, size, RGBAFormat);
   texture.wrapS = RepeatWrapping;
   texture.wrapT = RepeatWrapping;
   return texture;

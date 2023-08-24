@@ -1,5 +1,5 @@
 import { Body, Box, ContactEquation, Shape as P2Shape } from "p2";
-import { BoxBufferGeometry, Mesh, MeshPhongMaterial } from "three";
+import { BoxGeometry, Mesh, MeshPhongMaterial } from "three";
 import BaseEntity from "../../core/entity/BaseEntity";
 import Entity from "../../core/entity/Entity";
 import { CustomHandlersMap } from "../../core/entity/GameEventHandler";
@@ -22,8 +22,10 @@ const MATERIAL = new MeshPhongMaterial({
 });
 
 // TODO: Try composition instead of inheritance
-export default class DropTarget extends BaseEntity
-  implements Entity, WithBallCollisionInfo {
+export default class DropTarget
+  extends BaseEntity
+  implements Entity, WithBallCollisionInfo
+{
   body: Body;
   p2Shape: P2Shape;
   mesh: Mesh;
@@ -69,7 +71,7 @@ export default class DropTarget extends BaseEntity
   }
 
   getGeometry(width: number, height: number, depth: number) {
-    const geometry = new BoxBufferGeometry(width, height, depth);
+    const geometry = new BoxGeometry(width, height, depth);
     geometry.rotateX(Math.PI / 2);
     geometry.translate(0, 0, -height / 2);
     return geometry;

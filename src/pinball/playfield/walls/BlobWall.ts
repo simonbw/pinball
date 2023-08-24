@@ -1,14 +1,14 @@
-import p2, { Body, Convex, vec2 } from "p2";
-import { ExtrudeBufferGeometry, Matrix3, Mesh, Shape, Vector2 } from "three";
+import { Body, vec2 } from "p2";
+import { ExtrudeGeometry, Matrix3, Mesh, Shape, Vector2 } from "three";
 import { WALL_SIDE_MATERIAL, WALL_TOP_MATERIAL } from ".";
 import BaseEntity from "../../../core/entity/BaseEntity";
 import Entity from "../../../core/entity/Entity";
 import { isCCW, pathToPoints } from "../../../core/util/MathUtil";
+import { CollisionGroups } from "../../Collision";
 import {
   BallCollisionInfo,
   WithBallCollisionInfo,
 } from "../../ball/BallCollisionInfo";
-import { CollisionGroups } from "../../Collision";
 
 const SEGMENTS_PER_HALF_INCH = 0.8;
 
@@ -17,8 +17,10 @@ interface Options {
   height?: number;
 }
 
-export default class BlobWall extends BaseEntity
-  implements Entity, WithBallCollisionInfo {
+export default class BlobWall
+  extends BaseEntity
+  implements Entity, WithBallCollisionInfo
+{
   ballCollisionInfo: BallCollisionInfo = {
     beginContactSound: {
       name: "wallHit2",
@@ -30,7 +32,7 @@ export default class BlobWall extends BaseEntity
 
     const points = pathToPoints(path, transform, SEGMENTS_PER_HALF_INCH);
     const shapeToExtrude = new Shape(points.map(([x, y]) => new Vector2(x, y)));
-    const geometry = new ExtrudeBufferGeometry(shapeToExtrude, {
+    const geometry = new ExtrudeGeometry(shapeToExtrude, {
       bevelEnabled: false,
       depth: height,
       curveSegments: 1,

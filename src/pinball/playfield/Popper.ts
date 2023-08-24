@@ -1,8 +1,8 @@
 import { Body, Circle } from "p2";
-import { MeshStandardMaterial, CircleBufferGeometry, Mesh } from "three";
+import { MeshStandardMaterial } from "three";
+import { V } from "../../core/Vector";
 import BaseEntity from "../../core/entity/BaseEntity";
 import Entity from "../../core/entity/Entity";
-import { V } from "../../core/Vector";
 import { isBall } from "../ball/Ball";
 import { PositionalSound } from "../sound/PositionalSound";
 
@@ -23,7 +23,7 @@ export default class Popper extends BaseEntity implements Entity {
     const shape = new Circle({ radius });
     this.body.addShape(shape);
 
-    // const geometry = new CircleBufferGeometry(radius, 32);
+    // const geometry = new CircleGeometry(radius, 32);
     // this.mesh = new Mesh(geometry, MATERIAL);
     // this.mesh.rotateX(Math.PI);
     // this.mesh.position.set(position[0], position[1], 0);

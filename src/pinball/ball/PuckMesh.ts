@@ -1,13 +1,4 @@
-import {
-  CylinderBufferGeometry,
-  Mesh,
-  MeshStandardMaterial,
-  MeshBasicMaterial,
-  MeshLambertMaterial,
-  MixOperation,
-  AddOperation,
-  MeshPhongMaterial,
-} from "three";
+import { CylinderGeometry, Mesh, MeshStandardMaterial } from "three";
 import BaseEntity from "../../core/entity/BaseEntity";
 import Entity from "../../core/entity/Entity";
 import Reflector from "../graphics/Reflector";
@@ -17,7 +8,7 @@ import Ball from "./Ball";
 const RADIUS = 1.0625; // Radius in half inches
 const HEIGHT = RADIUS / 1.5; // Ratio of hockey puck size
 
-const GEOMETRY = new CylinderBufferGeometry(RADIUS, RADIUS, HEIGHT, 32, 4);
+const GEOMETRY = new CylinderGeometry(RADIUS, RADIUS, HEIGHT, 32, 4);
 GEOMETRY.rotateX(Math.PI / 2);
 
 export default class PuckMesh extends BaseEntity implements Entity {

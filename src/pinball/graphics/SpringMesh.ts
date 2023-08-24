@@ -1,5 +1,4 @@
 import {
-  BufferGeometry,
   Curve,
   Mesh,
   MeshStandardMaterial,
@@ -37,13 +36,10 @@ export function makeSpringGeometry(
   const geometry = new TubeGeometry(curve1, 64, 0.1, 3);
   const morphGeometry = new TubeGeometry(curve2, 64, 0.1, 3);
 
-  const morphVertices = morphGeometry.vertices;
-  geometry.morphTargets.push({
-    name: "short",
-    vertices: morphVertices,
-  });
-  geometry.verticesNeedUpdate = true;
-  return new BufferGeometry().fromGeometry(geometry);
+  geometry.morphAttributes.position = [
+    morphGeometry.attributes.position.clone(),
+  ];
+  return geometry;
 }
 
 export function makeSpring(
@@ -56,7 +52,6 @@ export function makeSpring(
     metalness: 1.0,
     roughness: 0.0,
     emissive: 0.777777,
-    morphTargets: true,
   });
   const geometry = makeSpringGeometry(maxLength, radius, numCoils);
   return new Mesh(geometry, material);

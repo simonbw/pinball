@@ -3,14 +3,12 @@ import {
   LinearFilter,
   Mesh,
   MeshPhongMaterial,
-  PlaneBufferGeometry,
+  PlaneGeometry,
 } from "three";
 import BaseEntity from "../../core/entity/BaseEntity";
 import Entity from "../../core/entity/Entity";
 import FPSMeter from "../../core/util/FPSMeter";
 import { UpdateScoreEvent } from "../system/LogicBoard";
-import { getBinding } from "./KeyboardBindings";
-import { keyCodeToName, KeyCode } from "../../core/io/Keys";
 import Table from "../tables/Table";
 import BackglassController from "./BackglassController";
 
@@ -60,7 +58,7 @@ export default class Backglass extends BaseEntity implements Entity {
     });
 
     const cx = table.bounds.center.x;
-    const geometry = new PlaneBufferGeometry(width, height);
+    const geometry = new PlaneGeometry(width, height);
     geometry.rotateX(-Math.PI / 2);
     geometry.translate(cx, 0, -height / 2 - heightAboveTable);
     this.mesh = new Mesh(geometry, material);
@@ -148,12 +146,8 @@ export default class Backglass extends BaseEntity implements Entity {
 
   renderStats() {
     const { width: w, height: h } = this.ctx.canvas;
-    const {
-      fps,
-      bodyCount,
-      renderCount,
-      entityCount,
-    } = this.fpsMeter.getStats();
+    const { fps, bodyCount, renderCount, entityCount } =
+      this.fpsMeter.getStats();
 
     this.ctx.font = "28px sans-serif";
     this.ctx.textBaseline = "bottom";

@@ -1,6 +1,6 @@
 import { Body, Box } from "p2";
 import {
-  BoxBufferGeometry,
+  BoxGeometry,
   LinearFilter,
   Mesh,
   MeshStandardMaterial,
@@ -8,27 +8,29 @@ import {
   Vector2,
   Vector3,
 } from "three";
+import { V, V2d } from "../../core/Vector";
 import BaseEntity from "../../core/entity/BaseEntity";
 import Entity from "../../core/entity/Entity";
-import { V, V2d } from "../../core/Vector";
+import { clamp, lerp } from "../../core/util/MathUtil";
+import { CollisionGroups } from "../Collision";
 import { isBall } from "../ball/Ball";
 import {
   BallCollisionInfo,
   WithBallCollisionInfo,
 } from "../ball/BallCollisionInfo";
-import { CollisionGroups } from "../Collision";
-import { createNoiseNormalMap } from "../graphics/proceduralTextures";
 import Reflector from "../graphics/Reflector";
+import { createNoiseNormalMap } from "../graphics/proceduralTextures";
 import { PositionalSound } from "../sound/PositionalSound";
 import { scoreEvent } from "../system/LogicBoard";
-import { lerp, clamp } from "../../core/util/MathUtil";
 
 const FRICTION = 0.9;
 const HEIGHT = 1.9;
 const SPEED_MULTI = 1.0 / (0.5 * HEIGHT * 2 * Math.PI);
 
-export default class Spinner extends BaseEntity
-  implements Entity, WithBallCollisionInfo {
+export default class Spinner
+  extends BaseEntity
+  implements Entity, WithBallCollisionInfo
+{
   spinVelocity: number = 0;
   rotations: number = 0.25;
   body: Body;
@@ -37,7 +39,11 @@ export default class Spinner extends BaseEntity
     scaleImpact: (impact) => impact * this.getContactAmount(),
   };
 
-  constructor(position: V2d, angle: number = 0, public width: number = 2.0) {
+  constructor(
+    position: V2d,
+    angle: number = 0,
+    public width: number = 2.0
+  ) {
     super();
 
     this.body = new Body({ collisionResponse: false, angle, position });
@@ -127,7 +133,7 @@ class SpinnerMesh extends BaseEntity implements Entity {
       normalMap: TEXTURE,
       normalScale: new Vector2(0.01, 0.01),
     });
-    const geometry = new BoxBufferGeometry(spinner.width, 0.1, height);
+    const geometry = new BoxGeometry(spinner.width, 0.1, height);
     geometry.rotateZ(spinner.body.angle);
     this.mesh = new Mesh(geometry, material);
     const [x, y] = spinner.body.position;

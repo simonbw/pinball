@@ -1,11 +1,11 @@
-import { Mesh, MeshStandardMaterial, SphereBufferGeometry } from "three";
+import { Mesh, MeshStandardMaterial, SphereGeometry } from "three";
+import { V, V2d } from "../../core/Vector";
 import BaseEntity from "../../core/entity/BaseEntity";
 import Entity from "../../core/entity/Entity";
-import { V, V2d } from "../../core/Vector";
+import { getGraphicsQuality } from "../controllers/GraphicsQualityController";
 import Reflector from "../graphics/Reflector";
 import { TEXTURES } from "../graphics/textures";
 import Ball from "./Ball";
-import { getGraphicsQuality } from "../controllers/GraphicsQualityController";
 
 export default class BallMesh extends BaseEntity implements Entity {
   mesh: Mesh;
@@ -28,7 +28,7 @@ export default class BallMesh extends BaseEntity implements Entity {
       envMap: this.reflector.envMap,
     });
 
-    const geometry = new SphereBufferGeometry(ball.radius, 16, 16);
+    const geometry = new SphereGeometry(ball.radius, 16, 16);
     this.mesh = new Mesh(geometry, material);
     this.mesh.castShadow = true;
     this.reflector.parentMesh = this.mesh;

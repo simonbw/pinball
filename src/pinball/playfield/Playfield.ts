@@ -1,8 +1,8 @@
 import { Body, Plane } from "p2";
-import { Mesh, MeshPhysicalMaterial, PlaneBufferGeometry } from "three";
+import { Mesh, MeshPhysicalMaterial, PlaneGeometry } from "three";
+import { V } from "../../core/Vector";
 import BaseEntity from "../../core/entity/BaseEntity";
 import Entity from "../../core/entity/Entity";
-import { V } from "../../core/Vector";
 import { CollisionGroups } from "../Collision";
 import { TEXTURES } from "../graphics/textures";
 import { Rect } from "../util/Rect";
@@ -41,7 +41,7 @@ export default class Playfield extends BaseEntity implements Entity {
 
     const width = right - left;
     const height = bottom - top;
-    const geometry = new PlaneBufferGeometry(width, height, 1, 1);
+    const geometry = new PlaneGeometry(width, height, 1, 1);
 
     geometry.rotateX(Math.PI);
 

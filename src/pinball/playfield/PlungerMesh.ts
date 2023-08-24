@@ -1,19 +1,17 @@
 import {
-  BufferGeometry,
   Curve,
-  CylinderBufferGeometry,
-  LatheBufferGeometry,
+  CylinderGeometry,
+  LatheGeometry,
   Mesh,
   MeshStandardMaterial,
   Object3D,
-  TubeGeometry,
   Vector2,
   Vector3,
 } from "three";
 import BaseEntity from "../../core/entity/BaseEntity";
 import Entity from "../../core/entity/Entity";
-import Plunger from "./Plunger";
 import { makeSpringGeometry } from "../graphics/SpringMesh";
+import Plunger from "./Plunger";
 
 const HEAD_LENGTH = 1;
 const SHAFT_LENGTH = 6.0;
@@ -42,7 +40,7 @@ export default class PlungerMesh extends BaseEntity implements Entity {
       color: 0x111111,
       roughness: 0.7,
     });
-    const geometry = new CylinderBufferGeometry(0.6, 0.4, HEAD_LENGTH);
+    const geometry = new CylinderGeometry(0.6, 0.4, HEAD_LENGTH);
     const mesh = new Mesh(geometry, material);
     mesh.castShadow = true;
     return mesh;
@@ -54,7 +52,7 @@ export default class PlungerMesh extends BaseEntity implements Entity {
       metalness: 1.0,
       roughness: 0.0,
     });
-    const geometry = new CylinderBufferGeometry(0.2, 0.2, SHAFT_LENGTH);
+    const geometry = new CylinderGeometry(0.2, 0.2, SHAFT_LENGTH);
     geometry.translate(0, HEAD_LENGTH / 2 + SHAFT_LENGTH / 2, 0);
     const mesh = new Mesh(geometry, material);
     mesh.castShadow = true;
@@ -67,12 +65,11 @@ export default class PlungerMesh extends BaseEntity implements Entity {
       metalness: 1.0,
       roughness: 0.0,
       emissive: 0.777777,
-      morphTargets: true,
     });
 
-    const bufferGeometry = makeSpringGeometry(SPRING_LENGTH, 0.35, 5);
-    bufferGeometry.translate(0, HEAD_LENGTH / 2, 0);
-    return new Mesh(bufferGeometry, material);
+    const Geometry = makeSpringGeometry(SPRING_LENGTH, 0.35, 5);
+    Geometry.translate(0, HEAD_LENGTH / 2, 0);
+    return new Mesh(Geometry, material);
   }
 
   makeHandle() {
@@ -93,7 +90,7 @@ export default class PlungerMesh extends BaseEntity implements Entity {
       new Vector2(0.3, 0.59),
       new Vector2(0.07, 0.6),
     ];
-    const geometry = new LatheBufferGeometry(points);
+    const geometry = new LatheGeometry(points);
     geometry.translate(0, HEAD_LENGTH / 2 + SHAFT_LENGTH, 0);
 
     return new Mesh(geometry, material);

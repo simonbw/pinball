@@ -1,21 +1,23 @@
 import { Body, Box, Shape as P2Shape } from "p2";
-import { BoxBufferGeometry, Mesh, MeshPhongMaterial } from "three";
+import { BoxGeometry, Mesh, MeshPhongMaterial } from "three";
+import { V2d } from "../../core/Vector";
 import BaseEntity from "../../core/entity/BaseEntity";
 import Entity from "../../core/entity/Entity";
 import { darken, lighten } from "../../core/util/ColorUtils";
-import { V2d } from "../../core/Vector";
+import { CollisionGroups } from "../Collision";
+import { P2Materials } from "../P2Materials";
 import { isBall } from "../ball/Ball";
 import {
   BallCollisionInfo,
   WithBallCollisionInfo,
 } from "../ball/BallCollisionInfo";
-import { CollisionGroups } from "../Collision";
 import { PositionalSound } from "../sound/PositionalSound";
 import { scoreEvent } from "../system/LogicBoard";
-import { P2Materials } from "../P2Materials";
 
-export default class LightUpTarget extends BaseEntity
-  implements Entity, WithBallCollisionInfo {
+export default class LightUpTarget
+  extends BaseEntity
+  implements Entity, WithBallCollisionInfo
+{
   tags = ["button_target"];
   body: Body;
   p2Shape: P2Shape;
@@ -52,7 +54,7 @@ export default class LightUpTarget extends BaseEntity
 
     this.material = new MeshPhongMaterial({ color });
 
-    const geometry = new BoxBufferGeometry(width, height, depth);
+    const geometry = new BoxGeometry(width, height, depth);
     geometry.rotateX(Math.PI / 2);
     geometry.translate(0, 0, -height / 2);
 

@@ -1,22 +1,22 @@
 import { Body, Circle } from "p2";
 import {
-  CylinderBufferGeometry,
+  CylinderGeometry,
   Mesh,
   MeshStandardMaterial,
-  SphereBufferGeometry,
   Object3D,
+  SphereGeometry,
 } from "three";
+import { V2d } from "../../core/Vector";
 import BaseEntity from "../../core/entity/BaseEntity";
 import Entity from "../../core/entity/Entity";
-import { V2d } from "../../core/Vector";
+import { CollisionGroups } from "../Collision";
+import { P2Materials } from "../P2Materials";
 import {
   BallCollisionInfo,
   WithBallCollisionInfo,
 } from "../ball/BallCollisionInfo";
 import Reflector from "../graphics/Reflector";
 import { TEXTURES } from "../graphics/textures";
-import { CollisionGroups } from "../Collision";
-import { P2Materials } from "../P2Materials";
 
 const RUBBER_MATERIAL = new MeshStandardMaterial({
   color: 0x070707,
@@ -24,15 +24,17 @@ const RUBBER_MATERIAL = new MeshStandardMaterial({
   roughness: 0.0,
 });
 
-const RUBBER_GEOMETRY = new SphereBufferGeometry(1.1, 12, 12);
+const RUBBER_GEOMETRY = new SphereGeometry(1.1, 12, 12);
 RUBBER_GEOMETRY.rotateX(Math.PI / 2);
 RUBBER_GEOMETRY.scale(1, 1, 0.7);
 
-const CYLINDER_GEOMETRY = new CylinderBufferGeometry(0.7, 0.7, 1);
+const CYLINDER_GEOMETRY = new CylinderGeometry(0.7, 0.7, 1);
 CYLINDER_GEOMETRY.rotateX(Math.PI / 2);
 
-export default class Post extends BaseEntity
-  implements Entity, WithBallCollisionInfo {
+export default class Post
+  extends BaseEntity
+  implements Entity, WithBallCollisionInfo
+{
   ballCollisionInfo: BallCollisionInfo;
   reflector: Reflector;
 

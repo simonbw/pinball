@@ -1,15 +1,13 @@
 import {
   AdditiveBlending,
   BufferGeometry,
-  CircleBufferGeometry,
   Color,
-  Geometry,
   LinearFilter,
   Mesh,
   MeshBasicMaterial,
   MeshStandardMaterial,
   Object3D,
-  PlaneBufferGeometry,
+  PlaneGeometry,
 } from "three";
 import BaseEntity from "../../../core/entity/BaseEntity";
 import Entity from "../../../core/entity/Entity";
@@ -49,14 +47,14 @@ const BULB_MATERIAL = new MeshStandardMaterial({
   polygonOffsetFactor: -1,
 });
 
-const GLOW_GEOMETRY = new PlaneBufferGeometry(8, 8);
+const GLOW_GEOMETRY = new PlaneGeometry(8, 8);
 
 export interface LampOptions {
   color?: number;
   size?: number;
   intensity?: number;
   toggleTime?: number;
-  bulbGeometry?: BufferGeometry | Geometry;
+  bulbGeometry?: BufferGeometry;
   angle?: number;
 }
 

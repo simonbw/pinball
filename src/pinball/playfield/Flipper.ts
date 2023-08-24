@@ -1,24 +1,19 @@
 import { Body, Convex, RevoluteConstraint, RotationalSpring } from "p2";
-import {
-  ExtrudeBufferGeometry,
-  Mesh,
-  MeshStandardMaterial,
-  Shape,
-} from "three";
+import { ExtrudeGeometry, Mesh, MeshStandardMaterial, Shape } from "three";
+import Game from "../../core/Game";
+import { V2d } from "../../core/Vector";
 import BaseEntity from "../../core/entity/BaseEntity";
 import Entity from "../../core/entity/Entity";
 import { CustomHandlersMap } from "../../core/entity/GameEventHandler";
-import Game from "../../core/Game";
 import RotationalSolenoidSpring from "../../core/physics/RotationalSolenoidSpring";
 import { angleDelta, degToRad, reflectX } from "../../core/util/MathUtil";
-import { V2d } from "../../core/Vector";
+import { CollisionGroups } from "../Collision";
+import { P2Materials } from "../P2Materials";
 import {
   BallCollisionInfo,
   WithBallCollisionInfo,
 } from "../ball/BallCollisionInfo";
-import { CollisionGroups } from "../Collision";
 import FlipperSoundController from "../sound/FlipperSoundController";
-import { P2Materials } from "../P2Materials";
 
 const MATERIAL = new MeshStandardMaterial({
   color: 0x0000cc,
@@ -36,8 +31,10 @@ const MASS = 2.8;
 
 type Side = "left" | "right";
 
-export default class Flipper extends BaseEntity
-  implements Entity, WithBallCollisionInfo {
+export default class Flipper
+  extends BaseEntity
+  implements Entity, WithBallCollisionInfo
+{
   body: Body;
   joint?: RevoluteConstraint;
   spring!: RotationalSpring;
@@ -115,7 +112,7 @@ export default class Flipper extends BaseEntity
     shape.lineTo(0, r);
     shape.absarc(0, 0, r, Math.PI / 2, -Math.PI / 2, false);
 
-    const geometry = new ExtrudeBufferGeometry(shape, {
+    const geometry = new ExtrudeGeometry(shape, {
       bevelEnabled: false,
       depth: 1,
     });

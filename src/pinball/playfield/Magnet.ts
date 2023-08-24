@@ -1,7 +1,7 @@
-import { CircleBufferGeometry, Mesh, MeshStandardMaterial } from "three";
+import { CircleGeometry, Mesh, MeshStandardMaterial } from "three";
+import { V, V2d } from "../../core/Vector";
 import BaseEntity from "../../core/entity/BaseEntity";
 import Entity from "../../core/entity/Entity";
-import { V, V2d } from "../../core/Vector";
 import { isBall } from "../ball/Ball";
 
 const MATERIAL = new MeshStandardMaterial({
@@ -16,10 +16,13 @@ const MATERIAL = new MeshStandardMaterial({
 export default class Magnet extends BaseEntity implements Entity {
   position: V2d;
 
-  constructor(position: [number, number], private strength: number = 1) {
+  constructor(
+    position: [number, number],
+    private strength: number = 1
+  ) {
     super();
     this.position = V(position);
-    const geometry = new CircleBufferGeometry(1, 32);
+    const geometry = new CircleGeometry(1, 32);
     this.mesh = new Mesh(geometry, MATERIAL);
     this.mesh.rotateX(Math.PI);
     this.disposeables.push(geometry);

@@ -25,7 +25,6 @@ export class GameRenderer3d {
       stencil: false,
       powerPreference: "high-performance",
     });
-    this.threeRenderer.physicallyCorrectLights = true;
     this.threeRenderer.domElement.style.pointerEvents = "none";
     this.threeRenderer.domElement.style.cursor = "none";
     this.domElement = this.threeRenderer.domElement;

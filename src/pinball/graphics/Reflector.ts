@@ -1,4 +1,4 @@
-import { CubeCamera, Object3D, WebGLCubeRenderTarget, Vector3 } from "three";
+import { Object3D, Vector3, WebGLCubeRenderTarget } from "three";
 import BaseEntity from "../../core/entity/BaseEntity";
 import Entity from "../../core/entity/Entity";
 import FastCubeCamera from "./FastCubeCamera";

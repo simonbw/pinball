@@ -5,21 +5,21 @@ import {
   RepeatWrapping,
   TextureLoader,
 } from "three";
+import ironScuffedRoughness from "../../../resources/textures/Iron-Scuffed_roughness.png";
 import bumperEmissive from "../../../resources/textures/bumper-emissive.png";
 import bumper from "../../../resources/textures/bumper.png";
 import hockeyPlayfield from "../../../resources/textures/hockey_playfield.png";
-import ironScuffedRoughness from "../../../resources/textures/Iron-Scuffed_roughness.png";
 import plasticpattern1Normal2Ogl from "../../../resources/textures/plasticpattern1-normal2-ogl.png";
 import plasticpattern1Roughness2 from "../../../resources/textures/plasticpattern1-roughness2.png";
 import scuffedPlasticNormal from "../../../resources/textures/scuffed-plastic-normal.png";
 import scuffedPlasticRough from "../../../resources/textures/scuffed-plastic-rough.png";
 import scuffedPlastic5Alb from "../../../resources/textures/scuffed-plastic5-alb.png";
-import woodSrc from "../../../resources/textures/wood.png";
 import streakedMetal1Albedo from "../../../resources/textures/streaked-metal1-albedo.png";
 import streakedMetal1Ao from "../../../resources/textures/streaked-metal1-ao.png";
 import streakedMetal1Metalness from "../../../resources/textures/streaked-metal1-metalness.png";
 import streakedMetal1NormalOgl from "../../../resources/textures/streaked-metal1-normal-ogl.png";
 import streakedMetal1Rough from "../../../resources/textures/streaked-metal1-rough.png";
+import woodSrc from "../../../resources/textures/wood.png";
 
 const loader = new TextureLoader();
 
@@ -67,7 +67,7 @@ TEXTURES.BumpyPlasticRoughness.minFilter = NearestFilter;
 
 export function waitForTexturesLoaded(
   onProgress?: (completed: number, total: number) => void
-) {
+): Promise<void> {
   if (Object.values(TEXTURES).every((texture) => Boolean(texture.image))) {
     const total = Object.values(TEXTURES).length;
     onProgress?.(total, total);

@@ -1,19 +1,21 @@
 import { Body, Capsule } from "p2";
-import { ExtrudeBufferGeometry, Mesh } from "three";
+import { ExtrudeGeometry, Mesh } from "three";
 import { WALL_SIDE_MATERIAL, WALL_TOP_MATERIAL } from ".";
+import { V2d } from "../../../core/Vector";
 import BaseEntity from "../../../core/entity/BaseEntity";
 import Entity from "../../../core/entity/Entity";
-import { V2d } from "../../../core/Vector";
 import { CollisionGroups } from "../../Collision";
-import { makeOutlineShape } from "../../graphics/OutlineShape";
 import { P2Materials } from "../../P2Materials";
 import {
-  WithBallCollisionInfo,
   BallCollisionInfo,
+  WithBallCollisionInfo,
 } from "../../ball/BallCollisionInfo";
+import { makeOutlineShape } from "../../graphics/OutlineShape";
 
-export default class MultiWall extends BaseEntity
-  implements Entity, WithBallCollisionInfo {
+export default class MultiWall
+  extends BaseEntity
+  implements Entity, WithBallCollisionInfo
+{
   ballCollisionInfo: BallCollisionInfo = {
     beginContactSound: {
       name: "wallHit2",
@@ -59,7 +61,7 @@ export default class MultiWall extends BaseEntity
     if (renderSelf) {
       const shape = makeOutlineShape(points, width);
 
-      const geometry = new ExtrudeBufferGeometry(shape, {
+      const geometry = new ExtrudeGeometry(shape, {
         bevelEnabled: false,
         depth: 2.0 * width + 0.25,
         curveSegments: 1,

@@ -1,10 +1,7 @@
+import { V, V2d } from "../../core/Vector";
 import BaseEntity from "../../core/entity/BaseEntity";
 import Entity from "../../core/entity/Entity";
-import { V, V2d } from "../../core/Vector";
-import { isBall } from "../ball/Ball";
 import { polarToVec } from "../../core/util/MathUtil";
-import { MeshStandardMaterial, CircleBufferGeometry, Mesh } from "three";
-import { createRadialGradient } from "../graphics/proceduralTextures";
 import Magnet from "./Magnet";
 
 export default class MagnetOrbiter extends BaseEntity implements Entity {

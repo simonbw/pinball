@@ -1,8 +1,8 @@
-import { Mesh, MeshPhysicalMaterial, PlaneBufferGeometry } from "three";
+import { Mesh, MeshPhysicalMaterial, PlaneGeometry } from "three";
 import BaseEntity from "../../core/entity/BaseEntity";
 import Entity from "../../core/entity/Entity";
-import { Rect } from "../util/Rect";
 import { getGraphicsQuality } from "../controllers/GraphicsQualityController";
+import { Rect } from "../util/Rect";
 
 /**
  * The main boundary of the game, makes sure the ball can't possibly be in weird places.
@@ -14,14 +14,15 @@ export default class Topglass extends BaseEntity implements Entity {
     const material = new MeshPhysicalMaterial({
       // color: new Color(),
       transparent: true,
+      side: 2,
       roughness: 0.01,
       reflectivity: 1,
       metalness: 0.5,
       opacity: 0.3,
     });
-    material.transparency = 0.68;
+    material.transmission = 0.68;
 
-    const geometry = new PlaneBufferGeometry(width, height, 1, 1);
+    const geometry = new PlaneGeometry(width, height, 1, 1);
 
     geometry.rotateX(Math.PI + slope);
 
